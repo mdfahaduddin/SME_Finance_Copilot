@@ -20,8 +20,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.14", cache: pip, cache-dependency-path: backend/requirements.txt }
-      - name: Tesseract OCR (for the scanned-statement tests)
-        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends tesseract-ocr
       - run: pip install -r requirements.txt
       - name: Unit and API tests (SQLite, offline LLM)
         run: pytest -q

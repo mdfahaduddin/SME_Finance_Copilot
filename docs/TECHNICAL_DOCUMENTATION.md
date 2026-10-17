@@ -375,7 +375,7 @@ cd backend && pytest        # 236 tests, about 2 minutes, no network or API key 
 | `test_agent.py` | 30 | PII masking, guardrails, groundedness, scripted-LLM tool loop, injection-obeying model blocked, viewer tool restriction, action cap, provider failure fallback, offline router, SSE API, conversation search, rename, pin, delete and privacy |
 | `test_import.py` | 33 | CSV/Excel parsing, date and amount formats, validation, de-duplication, invoice linking, permissions, business isolation |
 | `test_pdf_statement.py` | 22 | Statement layouts, wrapped text, CR/DR, reconciliation of misread rows, passwords, scanned-file handling, end-to-end import |
-| `test_ocr.py` | 22 | Image cleaning, deskew, OCR reading and the balance-confirmed import policy (7 need Tesseract; they run in CI and Docker) |
+| `test_ocr.py` | 22 | Image cleaning, deskew, OCR reading and the balance-confirmed import policy (7 need Tesseract and skip without it) |
 | `test_fx.py` | 7 | Rates and overrides, converted financing limits, identical eligibility across currencies, BDT approval limits, scenarios, alerts and answers |
 | `test_reports.py` | 11 | P&L agrees with the analysis engine, monthly columns add up, aged receivables reconcile, filters, CSV/Excel/PDF content, formula-injection protection, audit, isolation and currency, copilot pointing to Reports |
 | `test_profile.py` | 4 | Business profile editing and validation |

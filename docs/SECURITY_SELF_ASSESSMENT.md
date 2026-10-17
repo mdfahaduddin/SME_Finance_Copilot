@@ -135,7 +135,7 @@ The approval part of this matrix is served live by `GET /api/policy` and shown o
 | No PII in audit log | `test_security::test_audit_log_holds_no_customer_pii` | `audit_log.json` |
 | Input validation, body limit, headers | `test_api::test_scenario_validation`, `test_oversized_body_rejected`, `test_security_headers` | – |
 
-**Totals:** 229 backend tests and 42 frontend tests pass, and 7 OCR tests skip on machines without Tesseract (they run in CI and the Docker image) (`docs/evidence/test_report.txt`). 37/37 end-to-end evidence steps behave as expected against the live model.
+**Totals:** 229 backend tests and 42 frontend tests pass, and 7 OCR tests skip on machines without Tesseract (the Docker image includes Tesseract) (`docs/evidence/test_report.txt`). 37/37 end-to-end evidence steps behave as expected against the live model.
 
 ---
 
