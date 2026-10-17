@@ -32,7 +32,7 @@ The script builds and starts the app, waits until it answers, prints the address
 
 Without the script, the same thing is `docker compose -f docker-compose.demo.yml up --build -d`, then open http://localhost:8080.
 
-- **Use the live AI (optional):** set `OPENAI_API_KEY` before starting (PowerShell: `$env:OPENAI_API_KEY="sk-..."`; macOS/Linux: `export OPENAI_API_KEY=sk-...`). Without it, the copilot answers in offline mode from the same finance engines.
+- **Use the live AI (optional):** put `OPENAI_API_KEY=sk-...` in a `.env` file next to `docker-compose.demo.yml` (git-ignored), or set it in the terminal before starting (PowerShell: `$env:OPENAI_API_KEY="sk-..."`; macOS/Linux: `export OPENAI_API_KEY=sk-...`). `backend/.env` is not used by Docker. Without a key, the copilot answers in offline mode from the same finance engines.
 - **Port 8080 busy?** Start with `DEMO_PORT=8090` (PowerShell: `$env:DEMO_PORT="8090"`) and open that port instead.
 - **Logs:** `docker compose -f docker-compose.demo.yml logs -f`. **Stop:** `docker compose -f docker-compose.demo.yml stop`. **Stop and reset the demo data:** `docker compose -f docker-compose.demo.yml down`.
 
