@@ -110,7 +110,7 @@ flowchart TB
 | Rate limits | Redis (in-memory fallback for a single local process) | Limits shared across API workers |
 | Frontend | React 19, TypeScript, Vite, **Tailwind CSS v4**, Recharts 3, lucide-react | Utility-first design system with light/dark tokens and lazy-loaded routes |
 | Delivery | Docker Compose: Caddy 2 (automatic HTTPS), API, PostgreSQL, Redis, scheduler | One-server deployment with security headers and TLS by default |
-| Tests / CI | pytest (236 backend tests), Vitest + React Testing Library (42 frontend tests), GitHub Actions | Tests, PostgreSQL migrations + smoke test, frontend build, dependency audit, Docker builds |
+| Tests | pytest (236 backend tests), Vitest + React Testing Library (42 frontend tests) | Engines, API, security, agent, imports, reports and UI |
 
 ### 2.3 Data model
 
@@ -380,7 +380,7 @@ cd backend && pytest        # 236 tests, about 2 minutes, no network or API key 
 | `test_reports.py` | 11 | P&L agrees with the analysis engine, monthly columns add up, aged receivables reconcile, filters, CSV/Excel/PDF content, formula-injection protection, audit, isolation and currency, copilot pointing to Reports |
 | `test_profile.py` | 4 | Business profile editing and validation |
 
-**Frontend** (`cd frontend && npm test`, 42 tests, Vitest with React Testing Library in a simulated browser; also run in CI):
+**Frontend** (`cd frontend && npm test`, 42 tests, Vitest with React Testing Library in a simulated browser):
 
 | Suite | Tests | Covers |
 |---|---|---|
@@ -400,4 +400,4 @@ The agent tests use a scripted LLM, so they're deterministic. `scripts/generate_
 ## 9. Deployment
 
 - **Local demo:** see the [README](../README.md#run-the-demo-locally): SQLite, demo data, two terminals, no API key needed.
-- **Production:** see [DEPLOYMENT.md](DEPLOYMENT.md): Docker Compose on one Linux server with Caddy (automatic HTTPS), the API (applies migrations on start), PostgreSQL 17, Redis and a scheduler; daily backups with `deploy/backup.sh`. CI runs the tests, PostgreSQL migrations with a smoke test, the frontend build, a dependency audit and the Docker builds on every push.
+- **Production:** see [DEPLOYMENT.md](DEPLOYMENT.md): Docker Compose on one Linux server with Caddy (automatic HTTPS), the API (applies migrations on start), PostgreSQL 17, Redis and a scheduler; daily backups with `deploy/backup.sh`.

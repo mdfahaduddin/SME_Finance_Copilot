@@ -2,7 +2,7 @@
 
 The competition asks non-on-chain topics for **simulated-account/sandbox operation logs** and a demo video. Everything here was produced by running the real application against its sandbox: the synthetic bakery ledger, a newly registered business, a mock lender marketplace and a simulated outbox. No real money or messages moved.
 
-Generated on 2026-10-13 with the live AI (`gpt-6-luna`). **37 of 37 steps behaved as expected; 229 backend tests and 42 frontend tests passed** (7 OCR tests are skipped on machines without Tesseract, including CI; the Docker image includes Tesseract).
+Generated on 2026-10-13 with the live AI (`gpt-6-luna`). **37 of 37 steps behaved as expected; 229 backend tests and 42 frontend tests passed** (7 OCR tests are skipped on machines without Tesseract; the Docker image includes Tesseract).
 
 ## Files
 

@@ -105,7 +105,7 @@ All lenders, customers and the demo business are fictional. The sandbox never mo
 | Backend | Python 3.14, FastAPI, SQLAlchemy 2 + Alembic, PostgreSQL (SQLite for local development), Redis, pandas, statsmodels, pdfplumber, Tesseract OCR |
 | AI agent | OpenAI Responses API with function calling (`gpt-6-luna` by default); offline rule-based fallback when no key is set or the provider fails |
 | Frontend | React 19, TypeScript, Vite, **Tailwind CSS v4**, Recharts, lucide-react |
-| Tests / CI | pytest (backend), Vitest + React Testing Library (frontend), GitHub Actions (tests, PostgreSQL migrations + smoke test, build, dependency audit) |
+| Tests | pytest (backend), Vitest + React Testing Library (frontend) |
 | Deployment | Docker Compose: Caddy (automatic HTTPS), API, PostgreSQL 17, Redis 7 |
 
 ## Run the demo locally

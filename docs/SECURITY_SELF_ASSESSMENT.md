@@ -157,7 +157,7 @@ Severity combines likelihood and impact *for a production deployment of this des
 | R10 | **Simulated integrations.** Real bank, lender and email connections bring new risks (OAuth scopes, webhook spoofing, delivery failures) | N/A now | Executors isolated behind the approval queue; they prepare, never send | Signed webhooks, scoped OAuth, idempotent external calls, reconciliation jobs |
 | R11 | **Demo credentials are public** for the local demo database | Low (demo only) | Production never seeds demo users; the seeder refuses to run against PostgreSQL without `--force`; demo login buttons are forced off in production builds | – |
 | R12 | **Viewers can see outbox recipients** (customer contact emails) | Low | Read access is intended for staff and viewers in the same business | Mask recipients for viewers |
-| R13 | **Dependency vulnerabilities** | Low | Exact versions pinned; `pip-audit` and `npm audit` in CI | Dependabot alerts |
+| R13 | **Dependency vulnerabilities** | Low | Exact versions pinned; checked with `pip-audit` and `npm audit` | Dependabot alerts |
 | R14 | **Model behaviour varies between runs;** the wording of advice can change | Low | Deterministic engines for every figure; offline mode; tests use a scripted model | Evaluation suite for answer quality; model version pinning |
 
 **Closed since the competition build:** browser-stored JWTs (now HttpOnly server-side sessions with CSRF), no revocation (server-side logout and revocation), no MFA (TOTP two-factor), in-memory rate limits (Redis), no CSP or HTTPS (Caddy with CSP and HSTS), unencrypted SQLite in production (PostgreSQL enforced), random per-process secret in production (startup refuses a weak `SECRET_KEY`).
