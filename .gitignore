@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+backend/data/*.db
+backend/data/*.db-*
+
+# Secrets
+.env
+.env.*
+!.env.example
+!.env.production.example
+
+# Node
+node_modules/
+frontend/dist/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+backend/data/evidence*.db
+
+# Deployment
+backups/
+
+# Competition submission files (contain participants' personal data)
+submission/

@@ -1,0 +1,22 @@
+[
+  {
+    "id": 2,
+    "actionRequestId": 2,
+    "channel": "email",
+    "recipient": "applications@equipfinance-partners.example",
+    "subject": "Financing application EQUI-00002 - Lotus Bakery & Cafe Ltd.",
+    "body": "Lotus Bakery & Cafe Ltd. applies for $45,000 (Equipment Financing) over 72 months.\nPurpose: New deck oven\nReference: EQUI-00002",
+    "status": "simulated",
+    "createdAt": "2026-10-13T18:52:36Z"
+  },
+  {
+    "id": 1,
+    "actionRequestId": 1,
+    "channel": "email",
+    "recipient": "payables@riverside-hotels.example",
+    "subject": "Payment reminder: INV-1171",
+    "body": "Hello Riverside Hotel Group team,\n\nThis is a reminder that invoice INV-1171 for $4,678.78 is now 39 days overdue. Please arrange payment at your earliest convenience.\n\nThank you,\nLotus Bakery & Cafe Ltd.",
+    "status": "simulated",
+    "createdAt": "2026-10-13T18:52:35Z"
+  }
+]

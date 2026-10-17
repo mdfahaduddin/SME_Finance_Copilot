@@ -1,0 +1,41 @@
+# DOMAIN comes from the root .env (e.g. finance.example.com). Caddy obtains and renews
+# the TLS certificate automatically; ports 80 and 443 must be reachable from the internet.
+# For a local test without a domain, set DOMAIN=localhost (self-signed certificate).
+{$DOMAIN} {
+	encode zstd gzip
+
+	# API: streaming (SSE) responses must be flushed immediately.
+	handle /api/* {
+		reverse_proxy api:8000 {
+			flush_interval -1
+		}
+	}
+
+	# Single-page app: unknown paths fall back to index.html for client-side routing.
+	handle {
+		root * /srv
+		try_files {path} /index.html
+		file_server
+
+		header {
+			Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+			Strict-Transport-Security "max-age=31536000; includeSubDomains"
+			X-Content-Type-Options "nosniff"
+			X-Frame-Options "DENY"
+			Referrer-Policy "no-referrer"
+			Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		}
+		# Fingerprinted build files (name-AbCd1234.js) never change. Everything else, including index.html
+		# and images copied from public/ (which keep their names when replaced), is revalidated.
+		@hashed path_regexp ^/assets/.+-[A-Za-z0-9_-]{8}\.(js|css)$
+		header @hashed Cache-Control "public, max-age=31536000, immutable"
+		@other not path_regexp ^/assets/.+-[A-Za-z0-9_-]{8}\.(js|css)$
+		header @other Cache-Control "no-cache"
+	}
+
+	header -Server
+	log {
+		output stdout
+		format json
+	}
+}

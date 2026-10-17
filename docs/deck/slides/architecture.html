@@ -1,0 +1,36 @@
+<section id="architecture" data-transition="fade" style="background:#F6F6FA;color:#14172B;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:20px">
+<p style="font-size:24px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#5B2BD6">How it works</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;letter-spacing:-1px">Every request passes a policy gate</h2>
+<div style="position:absolute;left:128px;top:520px;width:250px;height:140px;background:#FDFDFF;border:2px solid #C9CCDB;border-radius:20px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px">
+<p style="font-size:32px;font-weight:600;text-align:center">Owner</p>
+<p style="font-size:24px;color:#4A5068;text-align:center">or accountant</p>
+</div>
+<div style="position:absolute;left:470px;top:460px;width:370px;height:260px;background:#14172B;border-radius:20px;display:flex;flex-direction:column;justify-content:center;gap:10px;padding:32px">
+<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:700;color:#F6F6FA">Copilot agent</p>
+<p style="font-size:24px;line-height:1.35;color:#B9BCD0">LLM reasons: picks tools, explains results</p>
+<p style="font-size:24px;line-height:1.35;color:#B4A5FF">PII masked · store=false</p>
+</div>
+<div style="position:absolute;left:930px;top:520px;width:290px;height:140px;background:#EDE8FD;border:2px solid #5B2BD6;border-radius:20px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px">
+<p style="font-size:32px;font-weight:600;color:#3A1C99;text-align:center">Policy gate</p>
+<p style="font-size:24px;color:#3A1C99;text-align:center">role × tier · limits</p>
+</div>
+<div style="position:absolute;left:1310px;top:380px;width:482px;height:190px;background:#FDFDFF;border:2px solid #2A78D6;border-radius:20px;display:flex;flex-direction:column;justify-content:center;gap:8px;padding:28px">
+<p style="font-size:32px;font-weight:600">T0 read · T1 advise</p>
+<p style="font-size:24px;line-height:1.35;color:#4A5068">Finance engines calculate every number</p>
+</div>
+<div style="position:absolute;left:1310px;top:620px;width:482px;height:190px;background:#FDFDFF;border:2px solid #C27A06;border-radius:20px;display:flex;flex-direction:column;justify-content:center;gap:8px;padding:28px">
+<p style="font-size:32px;font-weight:600">T2 act</p>
+<p style="font-size:24px;line-height:1.35;color:#4A5068">Approval queue: a human approves, then the sandbox executes</p>
+</div>
+<div style="position:absolute;left:470px;top:790px;width:750px;height:110px;background:#E9EAF2;border-radius:20px;display:flex;flex-direction:row;align-items:center;gap:20px;padding:24px 32px">
+<x-icon name="Lock" style="color:#14172B;width:40px;height:40px"></x-icon>
+<p style="font-size:26px;line-height:1.3">Hash-chained audit log records every call and decision</p>
+</div>
+<x-connector x1="378" y1="590" x2="470" y2="590" head="end" style="color:#6B7088;border-width:3px"></x-connector>
+<x-connector x1="840" y1="590" x2="930" y2="590" head="end" style="color:#6B7088;border-width:3px"></x-connector>
+<x-connector x1="1220" y1="570" x2="1310" y2="475" route="elbow" head="end" style="color:#2A78D6;border-width:3px"></x-connector>
+<x-connector x1="1220" y1="610" x2="1310" y2="715" route="elbow" head="end" style="color:#C27A06;border-width:3px"></x-connector>
+<x-connector x1="655" y1="720" x2="655" y2="790" head="end" style="color:#6B7088;border-width:3px;border-style:dashed"></x-connector>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6B7088">6 / 12</p>
+<aside>About 60 seconds. The user signs in with a secure server-side session, optionally with two-factor, and talks to the copilot agent, which runs on OpenAI's Responses API with function calling. Before anything reaches the model, names, emails and account numbers are replaced with tokens, and the provider is told not to store the conversation. The model can only call tools, and every tool call goes through a policy gate on our server that checks the user's role against the tool's tier. Tier zero reads data and tier one gives advice; both run on deterministic finance engines. Tier two is any action with real-world effect, and it can only create a request in the approval queue. A human approves it in the app; only then does the sandbox execute it. Everything is written to a hash-chained audit log.</aside>
+</section>

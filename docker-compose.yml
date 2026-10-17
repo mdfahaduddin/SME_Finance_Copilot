@@ -1,0 +1,97 @@
+# Production stack: Caddy (HTTPS + static frontend) -> FastAPI -> PostgreSQL / Redis.
+# Configure with a .env file next to this one (copy .env.production.example).
+#   docker compose up -d --build
+name: smecopilot
+
+x-api-env: &api-env
+  APP_ENV: production
+  DATABASE_URL: postgresql+psycopg://smecopilot:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}@db:5432/smecopilot
+  REDIS_URL: redis://redis:6379/0
+  SECRET_KEY: ${SECRET_KEY:?set SECRET_KEY in .env}
+  PUBLIC_BASE_URL: https://${DOMAIN:?set DOMAIN in .env}
+  CORS_ORIGINS: https://${DOMAIN}
+  OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+  OPENAI_MODEL: ${OPENAI_MODEL:-gpt-6-luna}
+  SMTP_HOST: ${SMTP_HOST:-}
+  SMTP_PORT: ${SMTP_PORT:-587}
+  SMTP_USER: ${SMTP_USER:-}
+  SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+  SMTP_FROM: ${SMTP_FROM:-SME Finance Copilot <no-reply@localhost>}
+  SENTRY_DSN: ${SENTRY_DSN:-}
+  LOG_LEVEL: ${LOG_LEVEL:-INFO}
+  FX_RATES: ${FX_RATES:-}
+  OCR_LANGUAGES: ${OCR_LANGUAGES:-eng}
+
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: smecopilot
+      POSTGRES_USER: smecopilot
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U smecopilot -d smecopilot"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    # Rate-limit counters only: nothing worth persisting.
+    command: ["redis-server", "--save", "", "--appendonly", "no", "--maxmemory", "64mb", "--maxmemory-policy", "allkeys-lru"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: ./backend
+      args:
+        OCR_LANGS: ${OCR_LANGS:-}      # extra Tesseract language packs, e.g. "ben"
+    image: smecopilot-api:latest
+    restart: unless-stopped
+    environment:
+      <<: *api-env
+      WEB_CONCURRENCY: ${WEB_CONCURRENCY:-2}
+    depends_on:
+      db: { condition: service_healthy }
+      redis: { condition: service_healthy }
+    # No published ports: only Caddy reaches the API, over the internal network.
+
+  scheduler:
+    image: smecopilot-api:latest   # same image as api, built once
+    pull_policy: never
+    restart: unless-stopped
+    command: ["scheduler"]
+    environment: *api-env
+    depends_on:
+      api: { condition: service_healthy }
+    healthcheck:
+      disable: true
+
+  web:
+    build: ./frontend
+    image: smecopilot-web:latest
+    restart: unless-stopped
+    environment:
+      DOMAIN: ${DOMAIN}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"   # HTTP/3
+    volumes:
+      - caddy_data:/data     # TLS certificates - keep this volume
+      - caddy_config:/config
+    depends_on:
+      api: { condition: service_healthy }
+
+volumes:
+  pgdata:
+  caddy_data:
+  caddy_config:

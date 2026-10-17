@@ -1,0 +1,57 @@
+Generated 2026-10-13 19:13 UTC
+
+
+> smecopilot-frontend@0.1.0 test
+> vitest run --reporter=verbose
+
+
+ RUN  v5.0.4 frontend
+
+ ✓ src/lib/download.test.ts > downloadFile > uses the file name the server chose (business and period) 32ms
+ ✓ src/lib/download.test.ts > downloadFile > falls back to the given name 5ms
+ ✓ src/lib/download.test.ts > downloadFile > surfaces the server's error message 4ms
+ ✓ src/lib/format.test.ts > money > formats in the business currency set at sign-in 63ms
+ ✓ src/lib/format.test.ts > money > can be given a currency and a compact form 2ms
+ ✓ src/lib/format.test.ts > money > falls back to USD when no currency is known 2ms
+ ✓ src/lib/format.test.ts > pct > turns ratios into percentages 1ms
+ ✓ src/pages/Reports.test.ts > report period presets > this-month runs from 2026-10-01 to 2026-10-13 6ms
+ ✓ src/pages/Reports.test.ts > report period presets > 3m runs from 2026-08-01 to 2026-10-13 1ms
+ ✓ src/pages/Reports.test.ts > report period presets > 6m runs from 2026-05-01 to 2026-10-13 1ms
+ ✓ src/pages/Reports.test.ts > report period presets > 12m runs from 2025-11-01 to 2026-10-13 1ms
+ ✓ src/pages/Reports.test.ts > report period presets > ytd runs from 2026-01-01 to 2026-10-13 1ms
+ ✓ src/pages/Reports.test.ts > report period presets > last-year runs from 2025-01-01 to 2025-12-31 1ms
+ ✓ src/pages/Reports.test.ts > report period presets > crosses year boundaries correctly 1ms
+ ✓ src/pages/Reports.test.ts > report query strings > skips empty filters and encodes values 1ms
+ ✓ src/lib/toast.test.tsx > toasts > shows a success message and removes it after 4 seconds 323ms
+ ✓ src/lib/toast.test.tsx > toasts > announces errors as alerts and keeps them longer 35ms
+ ✓ src/lib/toast.test.tsx > toasts > shows at most four at a time, newest last 99ms
+ ✓ src/lib/toast.test.tsx > toasts > can be dismissed by hand 198ms
+ ✓ src/lib/toast.test.tsx > toasts > errorText reads the message of any thrown value 2ms
+ ✓ src/components/ui/Field.test.tsx > form fields > labels inputs and shows an error instead of the hint 403ms
+ ✓ src/components/chat/ConversationList.test.tsx > conversation list > puts pinned conversations first, then groups by date 545ms
+ ✓ src/components/layout/Sidebar.test.tsx > sidebar > lists every page and marks the current one 709ms
+ ✓ src/components/ui/Field.test.tsx > form fields > lets the user show and hide a password 342ms
+ ✓ src/components/ui/Field.test.tsx > form fields > renders form errors as alerts, and nothing without one 20ms
+ ✓ src/components/ui/Field.test.tsx > password strength meter > "" -> At least 10 characters. A short sentence works well. 10ms
+ ✓ src/components/ui/Field.test.tsx > password strength meter > "short" -> 5 more characters needed 5ms
+ ✓ src/components/ui/Field.test.tsx > password strength meter > "abcdefghij" -> Okay 5ms
+ ✓ src/components/ui/Field.test.tsx > password strength meter > "Correct horse battery" -> Very strong 6ms
+ ✓ src/components/layout/Sidebar.test.tsx > sidebar > collapses to an icon rail and remembers it 241ms
+ ✓ src/components/layout/Sidebar.test.tsx > sidebar > starts collapsed when that was the last choice, and Ctrl+B toggles it 109ms
+ ✓ src/components/chat/ConversationList.test.tsx > conversation list > opens a conversation and starts a new one 299ms
+ ✓ src/pages/Login.test.tsx > sign-in page > signs in with email and password 1542ms
+ ✓ src/components/chat/ConversationList.test.tsx > conversation list > searches titles and messages on the server and highlights matches 602ms
+ ✓ src/components/chat/ConversationList.test.tsx > conversation list > says when nothing matches 391ms
+ ✓ src/components/chat/ConversationList.test.tsx > conversation list > pins and unpins 125ms
+ ✓ src/pages/Login.test.tsx > sign-in page > shows the server's error 860ms
+ ✓ src/components/chat/ConversationList.test.tsx > conversation list > renames with Enter, tidies the name, and cancels with Escape 778ms
+ ✓ src/components/chat/ConversationList.test.tsx > conversation list > asks before deleting 283ms
+ ✓ src/components/chat/ConversationList.test.tsx > conversation list > hides the row actions while the copilot is answering 39ms
+ ✓ src/pages/Login.test.tsx > sign-in page > asks for the two-factor code when the account has it 882ms
+ ✓ src/pages/Login.test.tsx > sign-in page > links to password recovery and registration 46ms
+
+ Test Files  8 passed (8)
+      Tests  42 passed (42)
+   Start at  01:13:54
+   Duration  9.20s (environment 64%, tests 18%, setup 12%, import 6%, transform 1%)
+

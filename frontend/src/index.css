@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+/* Class-based dark mode: <html class="dark"> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Design tokens. Components use semantic names (bg-surface, text-muted, border-line,
+ * bg-brand-600, text-danger...) so light/dark switching happens here, not in components.
+ */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "SF Mono", Consolas, monospace;
+
+  /* Brand: indigo-violet, matching the competition palette */
+  --color-brand-50: #f3f1ff;
+  --color-brand-100: #e9e5ff;
+  --color-brand-200: #d4ccff;
+  --color-brand-300: #b4a5ff;
+  --color-brand-400: #9171fc;
+  --color-brand-500: #7c4df5;
+  --color-brand-600: #6a35e8;
+  --color-brand-700: #5927c9;
+  --color-brand-800: #4a22a3;
+  --color-brand-900: #3e2084;
+
+  /* Semantic surfaces (light) */
+  --color-canvas: #f6f7fb;
+  --color-surface: #ffffff;
+  --color-surface-2: #f1f3f9;
+  --color-line: #e3e6ef;
+  --color-ink: #141726;
+  --color-muted: #5f667d;
+
+  /* Status */
+  --color-success: #12a26b;
+  --color-success-soft: #e3f7ee;
+  --color-warning: #c27a06;
+  --color-warning-soft: #fdf3dc;
+  --color-danger: #d93a3a;
+  --color-danger-soft: #fde8e8;
+  --color-info: #2f6fdb;
+  --color-info-soft: #e5efff;
+
+  /* Charts: validated categorical slots (dataviz reference palette; CVD-checked against our surfaces) */
+  --color-chart-1: #2a78d6;
+  --color-chart-2: #eb6834;
+  --color-chart-band: rgb(42 120 214 / 0.14);
+  --color-chart-grid: #eceef4;
+  --color-chart-axis: #c9cdd8;
+
+  --radius-card: 1rem;
+  --shadow-card: 0 1px 2px rgb(16 24 40 / 0.04), 0 1px 3px rgb(16 24 40 / 0.06);
+}
+
+/* Dark theme: override the semantic tokens only */
+.dark {
+  --color-canvas: #0c0e17;
+  --color-surface: #141724;
+  --color-surface-2: #1b1f30;
+  --color-line: #272c40;
+  --color-ink: #e8eaf3;
+  --color-muted: #9097ad;
+
+  --color-success-soft: #0f2e22;
+  --color-warning-soft: #33260a;
+  --color-danger-soft: #3a1515;
+  --color-info-soft: #13213d;
+
+  --color-chart-1: #3987e5;
+  --color-chart-2: #d95926;
+  --color-chart-band: rgb(57 135 229 / 0.18);
+  --color-chart-grid: #232838;
+  --color-chart-axis: #343a50;
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4);
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-canvas text-ink font-sans;
+  }
+  ::selection {
+    @apply bg-brand-200 text-brand-900;
+  }
+
+  /* Brand scrollbars. scrollbar-color covers Chrome/Edge 121+ and Firefox; the ::-webkit rules are the
+     fallback for Safari (Chrome ignores them once scrollbar-color is set). */
+  :root {
+    --scrollbar-thumb: var(--color-brand-300);
+    --scrollbar-thumb-hover: var(--color-brand-500);
+  }
+  .dark {
+    --scrollbar-thumb: var(--color-brand-800);
+    --scrollbar-thumb-hover: var(--color-brand-600);
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: 9999px;
+    background: var(--scrollbar-thumb) padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover) padding-box;
+  }
+}
+
+/* Toast entrance (lib/toast.tsx) */
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+.toast-in {
+  animation: toast-in 180ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .toast-in {
+    animation: none;
+  }
+}
+
+/* Tabular figures for financial numbers */
+@utility num {
+  font-variant-numeric: tabular-nums;
+}
