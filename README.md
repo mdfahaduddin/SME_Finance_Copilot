@@ -12,7 +12,33 @@ Every business works in its own currency (USD, BDT, EUR, INR and more): amounts,
 
 **2026 Shenzhen International FinTech Competition, WeBank International Track, Topic E: SME Finance Copilot.** Theme: *AI as a Financial Participant*.
 
-### Run it in about 10 minutes
+### Fastest: Docker, one command
+
+If you have [Docker Desktop](https://www.docker.com/products/docker-desktop/) running, nothing else is needed (no Python, Node.js or AI key):
+
+```bash
+git clone https://github.com/mdfahaduddin/SME_Finance_Copilot.git
+cd SME_Finance_Copilot
+```
+
+Then start the demo with the script for your system:
+
+| System | Command |
+|---|---|
+| Windows (PowerShell or Command Prompt) | `.\start-demo.cmd` |
+| macOS / Linux | `./start-demo.sh` |
+
+The script builds and starts the app, waits until it answers, prints the address and opens your browser at **http://localhost:8080**. The first build takes a few minutes. Click a demo account (Owner, Accountant or Viewer) on the sign-in page; the demo business is seeded automatically.
+
+Without the script, the same thing is `docker compose -f docker-compose.demo.yml up --build -d`, then open http://localhost:8080.
+
+- **Use the live AI (optional):** set `OPENAI_API_KEY` before starting (PowerShell: `$env:OPENAI_API_KEY="sk-..."`; macOS/Linux: `export OPENAI_API_KEY=sk-...`). Without it, the copilot answers in offline mode from the same finance engines.
+- **Port 8080 busy?** Start with `DEMO_PORT=8090` (PowerShell: `$env:DEMO_PORT="8090"`) and open that port instead.
+- **Logs:** `docker compose -f docker-compose.demo.yml logs -f`. **Stop:** `docker compose -f docker-compose.demo.yml stop`. **Stop and reset the demo data:** `docker compose -f docker-compose.demo.yml down`.
+
+This demo setup is for local review only. Production deployment uses `docker-compose.yml` ([docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)).
+
+### Run it in about 10 minutes (without Docker)
 
 You need Python 3.12+ and Node.js 20+. No AI key, database server or internet account is needed: the database is a local file with a ready-made demo business, and without an OpenAI key the copilot answers in offline mode from the same finance engines.
 
@@ -80,6 +106,7 @@ All lenders, customers and the demo business are fictional. The sandbox never mo
 
 ## Contents
 
+- [Fastest: Docker, one command](#fastest-docker-one-command)
 - [Run the demo locally](#run-the-demo-locally) (database, backend, frontend: about 10 minutes)
 - [Database](#database) (reset, empty database, upgrading after a `git pull`, PostgreSQL)
 - [Optional features](#optional-features) (AI key, scanned-PDF OCR, exchange rates)

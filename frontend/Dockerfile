@@ -5,8 +5,9 @@ WORKDIR /src
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
-# Production builds never show the demo-account buttons.
-ENV VITE_DEMO_MODE=false
+# Production builds never show the demo-account buttons; only docker-compose.demo.yml sets this to true.
+ARG VITE_DEMO_MODE=false
+ENV VITE_DEMO_MODE=$VITE_DEMO_MODE
 RUN npm run build
 
 FROM caddy:2.10-alpine

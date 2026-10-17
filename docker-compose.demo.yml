@@ -1,0 +1,41 @@
+# One-command local demo for judges and reviewers (not for production; see docker-compose.yml).
+#   docker compose -f docker-compose.demo.yml up --build -d
+# Then open http://localhost:8080 and use a one-click demo account.
+# The sandbox business (Lotus Bakery & Cafe) is seeded on first start and kept until
+#   docker compose -f docker-compose.demo.yml down
+# The copilot runs in offline mode unless OPENAI_API_KEY is set in your shell or a .env file.
+name: smecopilot-demo
+
+services:
+  api:
+    build: ./backend
+    image: smecopilot-api:demo
+    environment:
+      APP_ENV: development
+      DATABASE_URL: sqlite:////tmp/smecopilot-demo.db
+      SECRET_KEY: demo-only-secret-key-not-for-production-use-0001
+      PUBLIC_BASE_URL: http://localhost:${DEMO_PORT:-8080}
+      CORS_ORIGINS: http://localhost:${DEMO_PORT:-8080}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-6-luna}
+    # Seed the sandbox once, refresh the lender catalogue, then serve (one worker: in-memory rate limits).
+    command:
+      - sh
+      - -c
+      - |
+        test -f /tmp/smecopilot-demo.db || python -m seed.seed
+        python -m app.cli seed-products
+        exec uvicorn app.main:app --host 0.0.0.0 --port 8000 --proxy-headers --forwarded-allow-ips '*' --no-server-header
+
+  web:
+    build:
+      context: ./frontend
+      args:
+        VITE_DEMO_MODE: "true"   # shows the one-click demo accounts on the sign-in page
+    image: smecopilot-web:demo
+    environment:
+      DOMAIN: ":80"              # plain HTTP inside the container; no certificate needed locally
+    ports:
+      - "${DEMO_PORT:-8080}:80"
+    depends_on:
+      api: { condition: service_healthy }
