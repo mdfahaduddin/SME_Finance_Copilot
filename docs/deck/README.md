@@ -1,6 +1,6 @@
 # Presentation deck
 
-A 12-slide deck for a talk of 10 minutes or less, describing the submitted build. Every slide has speaker notes (the `<aside>` in each slide file) with timings that add up to about 9 minutes 10 seconds.
+A 13-slide deck for a talk of 10 minutes or less, describing the submitted build. Every slide has speaker notes (the `<aside>` in each slide file) with timings that add up to about 9 minutes 40 seconds.
 
 | # | Slide | Time |
 |---|---|---|
@@ -15,6 +15,7 @@ A 12-slide deck for a talk of 10 minutes or less, describing the submitted build
 | 9 | Three tiers, one human gate (security) | 1:00 |
 | 10 | Proven in the sandbox (evidence: 278 tests, 37/37 steps) | 0:45 |
 | 11 | Transparent by design (product) | 0:35 |
-| 12 | Deployable today, connected next / Thank you | 0:40 |
+| 12 | Every step of the job, in one app (core-feature screenshots) | 0:30 |
+| 13 | Deployable today, connected next / Thank you | 0:40 |
 
-The deck is exported as **PowerPoint (.pptx)** and **PDF** for presenting. This folder keeps its source: `deck.json` (order and fonts) and `slides/*.html` (one slide each). The two screenshots in this folder are the images used on slide 11.
+The deck is exported as **PowerPoint (.pptx)** and **PDF** for presenting. This folder keeps its source: `deck.json` (order and fonts) and `slides/*.html` (one slide each). The two screenshots in this folder are the images used on slide 11; `features/` holds the six screenshots on slide 12.

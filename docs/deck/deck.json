@@ -1,19 +1,57 @@
 {
   "v": 4,
-  "createdOnFiles": {"v": 1, "at": "2026-10-13T08:10:00Z"},
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-10-13T08:10:00Z"
+  },
   "lists": "css",
   "title": "SME Finance Copilot",
-  "order": ["cover", "problem", "solution", "lotus", "import", "architecture", "engines", "principle", "security", "evidence", "product", "roadmap"],
+  "order": [
+    "cover",
+    "problem",
+    "solution",
+    "lotus",
+    "import",
+    "architecture",
+    "engines",
+    "principle",
+    "security",
+    "evidence",
+    "product",
+    "features",
+    "roadmap"
+  ],
   "sections": {
-    "s1": {"description": "Why small businesses need a finance copilot", "start": "cover"},
-    "s2": {"description": "What the copilot does, shown on a real sandbox business", "start": "solution"},
-    "s3": {"description": "How it works: agent, tools and deterministic engines", "start": "architecture"},
-    "s4": {"description": "Why it can be trusted: permission tiers, human approval and evidence", "start": "security"},
-    "s5": {"description": "What comes next", "start": "roadmap"}
+    "s1": {
+      "description": "Why small businesses need a finance copilot",
+      "start": "cover"
+    },
+    "s2": {
+      "description": "What the copilot does, shown on a real sandbox business",
+      "start": "solution"
+    },
+    "s3": {
+      "description": "How it works: agent, tools and deterministic engines",
+      "start": "architecture"
+    },
+    "s4": {
+      "description": "Why it can be trusted: permission tiers, human approval and evidence",
+      "start": "security"
+    },
+    "s5": {
+      "description": "What comes next",
+      "start": "roadmap"
+    }
   },
   "faces": {
-    "space-grotesk": {"family": "Space Grotesk", "href": "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&display=swap"},
-    "ibm-plex-sans": {"family": "IBM Plex Sans", "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap"}
+    "space-grotesk": {
+      "family": "Space Grotesk",
+      "href": "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&display=swap"
+    },
+    "ibm-plex-sans": {
+      "family": "IBM Plex Sans",
+      "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+    }
   },
   "designSystems": []
 }
